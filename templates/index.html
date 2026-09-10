@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}RailEase | Book Train Tickets{% endblock %}
+
+{% block nav_links %}
+  {% if logged_in %}
+    <a href="{{ url_for('dashboard') }}" class="btn btn-ghost">Dashboard</a>
+    <a href="{{ url_for('logout_page') }}" class="btn btn-danger">Logout</a>
+  {% else %}
+    <a href="{{ url_for('login_page') }}" class="btn btn-ghost">Login</a>
+    <a href="{{ url_for('register_page') }}" class="btn btn-primary">Get Started</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="hero container">
+  <h1>Book train tickets<br>the <span class="accent">smart</span> way.</h1>
+  <p>Search live routes, reserve seats instantly, and manage every booking
+     from one clean dashboard &mdash; all powered by a REST API underneath.</p>
+  <div class="hero-actions">
+    {% if logged_in %}
+      <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Go to Dashboard</a>
+    {% else %}
+      <a href="{{ url_for('register_page') }}" class="btn btn-primary">Create Free Account</a>
+      <a href="{{ url_for('login_page') }}" class="btn btn-ghost">I already have an account</a>
+    {% endif %}
+  </div>
+
+  <div class="features">
+    <div class="feature-card">
+      <div class="icon">🔎</div>
+      <h3>Search &amp; Filter</h3>
+      <p>Find trains by source, destination and travel date with live seat availability.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🎟️</div>
+      <h3>Instant PNR</h3>
+      <p>Every confirmed booking gets a unique PNR generated on the server.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🛠️</div>
+      <h3>Manage Bookings</h3>
+      <p>Edit seat counts, change dates, or cancel &mdash; all through the REST API.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🔐</div>
+      <h3>Secure Accounts</h3>
+      <p>Passwords are hashed server-side; sessions are cookie-based and protected.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}

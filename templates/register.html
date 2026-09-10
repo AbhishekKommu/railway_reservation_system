@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Register | RailEase{% endblock %}
+
+{% block nav_links %}
+  <a href="{{ url_for('login_page') }}" class="btn btn-ghost">Login</a>
+{% endblock %}
+
+{% block content %}
+<div class="auth-wrap">
+  <div class="auth-card">
+    <h2>Create your account</h2>
+    <p class="subtitle">Join RailEase to start booking train tickets.</p>
+
+    <div id="alert-box" class="alert error"></div>
+
+    <form id="register-form">
+      <div class="field">
+        <label for="full_name">Full name</label>
+        <input type="text" id="full_name" name="full_name" placeholder="Jane Doe" required>
+      </div>
+      <div class="field">
+        <label for="email">Email address</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="At least 6 characters" required minlength="6">
+      </div>
+      <button type="submit" class="btn btn-primary" id="register-btn">Create Account</button>
+    </form>
+
+    <div class="switch">Already have an account? <a href="{{ url_for('login_page') }}">Log in</a></div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+{% endblock %}

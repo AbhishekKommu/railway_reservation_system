@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | RailEase{% endblock %}
+
+{% block nav_links %}
+  <span class="btn btn-ghost" style="cursor:default;">👋 {{ full_name }}</span>
+  <a href="{{ url_for('logout_page') }}" class="btn btn-danger">Logout</a>
+{% endblock %}
+
+{% block content %}
+<main class="dash-main container">
+  <div class="dash-header">
+    <h1>Your Dashboard</h1>
+    <p>Search trains, reserve seats, and manage your bookings.</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="search">Search &amp; Book</button>
+    <button class="tab-btn" data-tab="bookings">My Bookings</button>
+    <button class="tab-btn" data-tab="manage">Manage Trains</button>
+  </div>
+
+  <!-- ---------------- Search & Book ---------------- -->
+  <section id="panel-search" class="panel active">
+    <form id="search-form" class="search-bar">
+      <div class="field">
+        <label for="s-source">From</label>
+        <input type="text" id="s-source" placeholder="e.g. Mumbai">
+      </div>
+      <div class="field">
+        <label for="s-destination">To</label>
+        <input type="text" id="s-destination" placeholder="e.g. Delhi">
+      </div>
+      <div class="field">
+        <label for="s-date">Journey date</label>
+        <input type="date" id="s-date">
+      </div>
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <div id="trains-list" class="card-grid"></div>
+  </section>
+
+  <!-- ---------------- My Bookings ---------------- -->
+  <section id="panel-bookings" class="panel">
+    <div id="bookings-list" class="card-grid"></div>
+  </section>
+
+  <!-- ---------------- Manage Trains (CRUD demo) ---------------- -->
+  <section id="panel-manage" class="panel">
+    <form id="add-train-form" class="search-bar" style="flex-wrap:wrap;">
+      <div class="field" style="min-width:120px;"><label>Train No.</label><input type="text" id="t-number" required></div>
+      <div class="field" style="min-width:160px;"><label>Name</label><input type="text" id="t-name" required></div>
+      <div class="field" style="min-width:120px;"><label>Source</label><input type="text" id="t-source" required></div>
+      <div class="field" style="min-width:120px;"><label>Destination</label><input type="text" id="t-destination" required></div>
+      <div class="field" style="min-width:100px;"><label>Departs</label><input type="time" id="t-departure" required></div>
+      <div class="field" style="min-width:100px;"><label>Arrives</label><input type="time" id="t-arrival" required></div>
+      <div class="field" style="min-width:90px;"><label>Seats</label><input type="number" id="t-seats" min="1" required></div>
+      <div class="field" style="min-width:100px;"><label>Fare (₹)</label><input type="number" id="t-fare" min="0" step="0.01" required></div>
+      <button type="submit" class="btn btn-primary">Add Train</button>
+    </form>
+
+    <div id="manage-list" class="card-grid"></div>
+  </section>
+</main>
+
+<!-- ---------------- Book Modal ---------------- -->
+<div class="modal-overlay" id="book-modal-overlay">
+  <div class="modal">
+    <h3>Reserve Seats</h3>
+    <div class="field">
+      <label>Train</label>
+      <input type="text" id="book-train-label" disabled>
+    </div>
+    <div class="field">
+      <label for="book-date">Journey date</label>
+      <input type="date" id="book-date" required>
+    </div>
+    <div class="field">
+      <label for="book-seats">Number of seats</label>
+      <input type="number" id="book-seats" min="1" value="1" required>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="book-cancel-btn">Cancel</button>
+      <button class="btn btn-primary" id="book-confirm-btn">Confirm Booking</button>
+    </div>
+  </div>
+</div>
+
+<!-- ---------------- Edit Booking Modal ---------------- -->
+<div class="modal-overlay" id="edit-modal-overlay">
+  <div class="modal">
+    <h3>Modify Booking</h3>
+    <div class="field">
+      <label for="edit-date">Journey date</label>
+      <input type="date" id="edit-date" required>
+    </div>
+    <div class="field">
+      <label for="edit-seats">Number of seats</label>
+      <input type="number" id="edit-seats" min="1" required>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="edit-cancel-btn">Cancel</button>
+      <button class="btn btn-primary" id="edit-confirm-btn">Save Changes</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

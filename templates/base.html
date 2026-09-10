@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}RailEase | Railway Reservation System{% endblock %}</title>
+<link rel="icon" href="{{ url_for('static', filename='images/train-logo.svg') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="{{ url_for('index') }}" class="brand">
+    <img src="{{ url_for('static', filename='images/train-logo.svg') }}" alt="RailEase logo">
+    Rail<span class="accent">Ease</span>
+  </a>
+  <div class="nav-links">
+    {% block nav_links %}{% endblock %}
+  </div>
+</nav>
+
+{% block content %}{% endblock %}
+
+<footer>
+  &copy; 2026 RailEase &mdash; a demo Railway Reservation System built with Flask &amp; SQLite.
+</footer>
+
+<div id="toast-container"></div>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>
